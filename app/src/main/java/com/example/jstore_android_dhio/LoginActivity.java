@@ -41,13 +41,13 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e){
                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                            builder.setMessage("Login Failed!").create().show();
-                        }
-                    }
-                };
+                builder.setMessage("Login Failed!").create().show();
+            }
+        }
+    };
 
-                LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+    LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
+    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
             }
         });
