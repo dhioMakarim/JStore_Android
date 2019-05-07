@@ -1,6 +1,5 @@
 package com.example.jstore_android_dhio;
 
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,15 +12,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.widget.ExpandableListView;
+
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Supplier> listSupplier = new ArrayList<>();
     private ArrayList<Item> listItem = new ArrayList<>();
     private HashMap<Supplier, ArrayList<Item>> childMapping = new HashMap<>();
+    MainListAdapter listAdapter;
+    ExpandableListView expListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listAdapter = new MainListAdapter(MainActivity.this, listSupplier, childMapping);
+        expListView.setAdapter(listAdapter);
     }
 
     protected void refreshList(){
