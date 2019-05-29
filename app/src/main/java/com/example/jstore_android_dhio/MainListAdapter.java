@@ -12,60 +12,63 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainListAdapter extends BaseExpandableListAdapter {
-    Context context;
-    private ArrayList<Supplier> listSupplier;
-    private HashMap<Supplier, ArrayList<Item>> childMapping;
 
-    public MainListAdapter(Context context, ArrayList<Supplier> listSupplier,
-                           HashMap<Supplier, ArrayList<Item>> childMapping){
-        this.context = context;
-        this.listSupplier = listSupplier;
-        this.childMapping = childMapping;
+    private Context _context;
+    private ArrayList<Supplier> _listDataHeader;
+    private HashMap<Supplier, ArrayList<Item>> _listDataChild;
+
+    public MainListAdapter(Context context, ArrayList<Supplier> listDataHeader,
+                           HashMap<Supplier, ArrayList<Item>> listChildData) {
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition){
-        return this.childMapping.get(this.listSupplier.get(groupPosition)).get(childPosition);
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .get(childPosititon);
     }
 
     @Override
-    public long getChildId(int groupPosition, final int childPosition){
+    public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
     @Override
     public View getChildView(int groupPosition, final int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent){
+                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String childText = (String) getChild(groupPosition, childPosition);
+        Item item = (Item) getChild(groupPosition, childPosition);
+        final String childText = item.getName();
 
-        if (convertView == null){
-            LayoutInflater infalInflater = (LayoutInflater) this.context
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.layout_item, null);
         }
 
-        TextView child = (TextView) convertView
+        TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.child);
 
-        child.setText(childText);
+        txtListChild.setText(childText);
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.childMapping.get(this.listSupplier.get(groupPosition))
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
                 .size();
     }
 
     @Override
-    public Object getGroup(int groupPosition){
-        return this.listSupplier.size();
+    public Object getGroup(int groupPosition) {
+        return this._listDataHeader.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.listSupplier.size();
+        return this._listDataHeader.size();
     }
 
     @Override
@@ -76,17 +79,18 @@ public class MainListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        Supplier supplier = (Supplier) getGroup(groupPosition);
+        String headerTitle = supplier.getName();
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
+            LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.layout_supplier, null);
         }
 
-        TextView groupHeader = (TextView) convertView
+        TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.groupHeader);
-        groupHeader.setTypeface(null, Typeface.BOLD);
-        groupHeader.setText(headerTitle);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListHeader.setText(headerTitle);
 
         return convertView;
     }

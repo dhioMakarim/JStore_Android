@@ -2,71 +2,36 @@ package com.example.jstore_android_dhio;
 
 public class Location {
     private String province;
-    private String description;
+    private String name;
     private String city;
 
-    /**
-     * Constructor for objects of class Location
-     */
-    public Location(String city, String province, String description)
-    {
-        // initialise instance variables
-        this.city = city;
+    public Location(String province, String name, String city) {
         this.province = province;
-        this.description = description;
+        this.name = name;
+        this.city = city;
     }
 
-    /**
-     * get location province
-     * @return    location's province
-     */
-    public String getProvince()
-    {
+    public String getProvince() {
         return province;
     }
 
-    /**
-     * get location city
-     * @return    location's city
-     */
-    public String getCity()
-    {
+    public String getName() {
+        return name;
+    }
+
+    public String getCity() {
         return city;
     }
 
-    /**
-     * get location description
-     * @return    location's description
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-
-    /**
-     * set location province
-     * @param   province   location's province
-     */
-    public void setProvince(String province)
-    {
+    public void setProvince(String province) {
         this.province = province;
     }
 
-    /**
-     * set location city
-     * @param   city   location's city
-     */
-    public void setCity(String city)
-    {
-        this.city = city;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    /**
-     * set location description
-     * @param   description   location's description
-     */
-    public void setDescription(String description)
-    {
-        this.description = description;
+    public void setCity(String city) {
+        this.city = city;
     }
 }
